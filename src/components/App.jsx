@@ -7,7 +7,7 @@ import { Filter } from './Filter/Filter';
 import css from 'App.module.css';
 
 
-export default function App() {
+export function App() {
   const { contacts } = useSelector(state => state.contacts);
   const dispatch = useDispatch();
 
