@@ -1,37 +1,53 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from 'nanoid';
+import { toast } from "react-toastify";
+import { addContact,getContacts } from "../../redux/contactsSlice";
 import css from '../ContactForm/ContactForm.module.css';
 
-export  function ContactForm({ onSubmit }) {
-    const [name] = useState('');
-    const [number] = useState('');
+export const ContactForm = () => {
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
+
+  const nameId = nanoid();
+  const numberId = nanoid();
   
   const handleChange = (event) => {
     const { name, value } = event.currentTarget;
     if (name === 'name') {
-      name(value);
+      setName(value);
     } else if (name === 'number') {
-      number(value);
+      setNumber(value);
     }
   };
 
-    const handleFormSubmit = ({ name, number }, { resetForm }) => {
-    const newState = {
-      id: nanoid(),
-      name,
-      number,
-    };
-    onSubmit(newState);
+     const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (
+      contacts.find((item) => item.name.toLowerCase() === name.toLowerCase())
+    ) {
+      toast.error(`Contact ${name} is already exist`);
+      return;
+    }
+    dispatch(addContact({ name, number, id: nanoid() }));
+    toast.success(`Contact ${name} has been added`);
+    return reset;
+  };
 
-    resetForm();
+  const reset = () => {
+    setName({ name: "" });
+    setNumber({ number: "" });
   };
 
     return (
       <section className={css.form}>
         <h1 className={css.form__title}>Phonebook</h1>
         <form className={css.form__container} onSubmit={handleFormSubmit}>
-          <label className={css.form__label}>Name</label>
+          <label className={css.form__label} htmlFor={nameId}>Name</label>
           <input
+            id='nameId'
             type="text"
             name="name"
             value={name}
@@ -42,8 +58,9 @@ export  function ContactForm({ onSubmit }) {
             required
              onChange={handleChange}
           />
-          <label className={css.form__label}>Number</label>
+          <label className={css.form__label} htmlFor={numberId}>Number</label>
           <input
+            id=' numberId'
             type="tel"
             name="number"
             value={number}

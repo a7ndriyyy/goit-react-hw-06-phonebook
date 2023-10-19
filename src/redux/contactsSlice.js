@@ -20,6 +20,8 @@ const contactsSlice = createSlice({
         },
     },
 });
+export const { addContact, removeContact, setFilter } = contactsSlice.actions;
+
 const persistConfig = {
     key: 'contacts',
     storage,
@@ -29,4 +31,5 @@ export const persistedReducer = persistReducer(
   persistConfig,
   contactsSlice.reducer
 );
-export const { addContact, removeContact, setFilter } = contactsSlice.actions;
+
+export const getContacts = state => state.contacts.items;
