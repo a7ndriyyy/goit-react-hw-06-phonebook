@@ -1,19 +1,12 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from 'nanoid';
-import { toast } from "react-toastify";
-import { addContact,getContacts } from "../../redux/contactsSlice";
 import css from '../ContactForm/ContactForm.module.css';
 
-export const ContactForm = () => {
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
-  const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+export function ContactForm({ addContact }) {
+ 
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-  const nameId = nanoid();
-  const numberId = nanoid();
-  
   const handleChange = (event) => {
     const { name, value } = event.currentTarget;
     if (name === 'name') {
@@ -23,31 +16,19 @@ export const ContactForm = () => {
     }
   };
 
-     const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (
-      contacts.find((item) => item.name.toLowerCase() === name.toLowerCase())
-    ) {
-      toast.error(`Contact ${name} is already exist`);
-      return;
-    }
-    dispatch(addContact({ name, number, id: nanoid() }));
-    toast.success(`Contact ${name} has been added`);
-    return reset;
-  };
-
-  const reset = () => {
-    setName({ name: "" });
-    setNumber({ number: "" });
+  const handleFormSubmit = (event) => {
+      event.preventDefault();
+    addContact({ id: nanoid(), name, number });
+    setName('');
+    setNumber('');
   };
 
     return (
       <section className={css.form}>
         <h1 className={css.form__title}>Phonebook</h1>
         <form className={css.form__container} onSubmit={handleFormSubmit}>
-          <label className={css.form__label} htmlFor={nameId}>Name</label>
+          <label className={css.form__label}>Name</label>
           <input
-            id='nameId'
             type="text"
             name="name"
             value={name}
@@ -58,9 +39,8 @@ export const ContactForm = () => {
             required
              onChange={handleChange}
           />
-          <label className={css.form__label} htmlFor={numberId}>Number</label>
+          <label className={css.form__label}>Number</label>
           <input
-            id=' numberId'
             type="tel"
             name="number"
             value={number}
