@@ -38,7 +38,6 @@ export function App() {
         <ContactForm onSubmit={formSubmitHandler} />
         <ContactList/>
           <Filter />
-    
       </div>
     </section>
   );

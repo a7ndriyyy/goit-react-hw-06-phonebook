@@ -2,25 +2,28 @@ import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import css from '../ContactForm/ContactForm.module.css';
 
-export function ContactForm({ addContact }) {
- 
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-
+export  function ContactForm({ onSubmit }) {
+    const [name] = useState('');
+    const [number] = useState('');
+  
   const handleChange = (event) => {
     const { name, value } = event.currentTarget;
     if (name === 'name') {
-      setName(value);
+      name(value);
     } else if (name === 'number') {
-      setNumber(value);
+      number(value);
     }
   };
 
-  const handleFormSubmit = (event) => {
-      event.preventDefault();
-    addContact({ id: nanoid(), name, number });
-    setName('');
-    setNumber('');
+    const handleFormSubmit = ({ name, number }, { resetForm }) => {
+    const newState = {
+      id: nanoid(),
+      name,
+      number,
+    };
+    onSubmit(newState);
+
+    resetForm();
   };
 
     return (
