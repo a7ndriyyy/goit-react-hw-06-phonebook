@@ -21,13 +21,9 @@ export const ContactList = ({ children }) => {
       <h2>Contacts</h2>
       {children}
       <ul className={css.contacts__list}>
-        {filteredContacts.map(({ name, id, number }) => {
-          return (
-            <li key={id} name={name} id={id} number={number}>
-              <ContactItem />
-            </li>
-          );
-        })}
+        {filteredContacts.map(({ name, id, number }) => (
+          <ContactItem key={id} name={name} id={id} number={number} />
+        ))}
       </ul>
     </div>
   );
