@@ -1,5 +1,6 @@
 import css from '../ContactList/ContactList.module.css';
 import { useSelector } from 'react-redux';
+import { ContactItem } from './ContactsItem';
 
 export const ContactList = ({ children }) => {
   const { contacts } = useSelector(state => state.contacts);
@@ -21,7 +22,11 @@ export const ContactList = ({ children }) => {
       {children}
       <ul className={css.contacts__list}>
         {filteredContacts.map(({ name, id, number }) => {
-          return <li key={id} name={name} id={id} number={number}></li>;
+          return (
+            <li key={id} name={name} id={id} number={number}>
+              <ContactItem />
+            </li>
+          );
         })}
       </ul>
     </div>
