@@ -13,10 +13,11 @@ import {
 } from 'redux-persist';
 
 export const store = configureStore({
-    reducers: {
-        contacts: persistedReducer,
-        filter: filterReducer,
-    }, middleware: getDefaultMiddleware =>
+  reducer: {
+    contacts: persistedReducer,
+    filter: filterReducer,
+  },
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

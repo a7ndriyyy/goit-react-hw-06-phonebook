@@ -6,7 +6,6 @@ import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import css from 'App.module.css';
 
-
 export function App() {
   const { contacts } = useSelector(state => state.contacts);
   const dispatch = useDispatch();
@@ -36,9 +35,9 @@ export function App() {
     <section className={css.content}>
       <div className={css.content__container}>
         <ContactForm onSubmit={formSubmitHandler} />
-        <ContactList/>
-          <Filter />
+        <ContactList />
+        <Filter />
       </div>
     </section>
   );
-};
+}
