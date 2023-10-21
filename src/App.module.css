@@ -19,3 +19,8 @@
   color: #1f3349;
   border-radius: 10px;
 }
+.Contacts {
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+}

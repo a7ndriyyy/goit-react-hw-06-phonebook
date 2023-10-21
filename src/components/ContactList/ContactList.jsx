@@ -18,9 +18,8 @@ export const ContactList = ({ children }) => {
 
   return (
     <div className={css.contacts}>
-      <h2>Contacts</h2>
-      {children}
       <ul className={css.contacts__list}>
+        {children}
         {filteredContacts.map(({ name, id, number }) => (
           <ContactItem key={id} name={name} id={id} number={number} />
         ))}

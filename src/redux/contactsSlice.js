@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -33,4 +32,4 @@ export const persistedReducer = persistReducer(
   contactsSlice.reducer
 );
 
-// export const getContacts = state => state.contacts.items;
+export const getContacts = state => state.contacts.items;
