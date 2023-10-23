@@ -22,7 +22,7 @@ export function ContactForm({ onSubmit }) {
 
   const handleFormSubmit = contact => {
     contact.preventDefault();
-    if (contacts.find(({ name }) => name === contact.name)) {
+    if (contacts.some(contact => name === contact.name)) {
       return alert(`${contact.name} is already in contacts`);
     }
     dispatch(addContact({ id: nanoid(), name, number }));
